@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
-     <title>Tittle Case</title>
+     <title>Get Even</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/forms.css">
   <style>
-    #output{
+    #container{
       border-radius:5px;
       min-height:40px;
       border:1px solid black;
@@ -20,20 +20,21 @@
  </head>
  <body>
      <header>
-     <h1 class="page-header">Tittle Case</h1>
+     <h1 class="page-header">Get Even</h1>
         <nav class="topnav" id="myTopnav">
             <a href="index.html" class="active">Home</a>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
         </nav>
      </header>
      
-   <main class="wrapper">
+   
+   
+     <main class="wrapper">
 
-    <h2 class="subheader">Place form code below:</h2>
-    <div> 
-      This page defines a titleCase function that converts a string to title case (capitalizing the first letter of each word and making the rest lowercase). It also sets up an event listener on a button with the id "submit" to trigger the function when clicked. The input value from the "input" field is converted to title case and displayed in the "output" element using its innerHTML property. Try it using the submit button below.</div>
-    <div id="output"></div>
-    <form method="post" action="" class="main-form">
+    <h2 class="subheader"></h2>
+    <div> This page contains a function named getEven, which accepts a single argument called num. The main objective of this function is to determine whether the provided number num is even or odd. This is achieved by checking if the remainder of dividing num by 2 is equal to 0. If the remainder is indeed 0, it indicates that num is an even number, and the function returns true. Conversely, if the remainder is not 0, it signifies that num is an odd number, and the function returns false.</div>
+    <div id="output">
+    <form method="get" action="" class="main-form">
       <div>
         <label for="input">Input</label><br>
         <input type="text" name="input" id="input" placeholder="Input" required autofocus>
@@ -42,9 +43,10 @@
         <input type="submit" id="submit">
       </div>
     </form>
+  </div>
     <footer>
       <p><small>&copy; 2021-<span id="this-year"></span> by 
-          Hayleyesus Gujo, All Rights Reserved ~ 
+          Hayleyesus gujo, All Rights Reserved ~ 
           <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
           <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
      </p>
@@ -52,23 +54,39 @@
   </main>
   <script src="js/main.js"></script>   
   <script>
-
-    function titleCase(str){
-     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    function getEven(num) {
+      if (num % 2 === 0) { // even
+        return true;
+      } else { // odd
+       return false;
+      }
     }
+    const queryString = window.location.search;
+    
+    const urlParams = new URLSearchParams(queryString);
+
+    if(queryString.length > 0){//form submitted!
+     let myOutput = `<div id="container">`;//will store data for display
+       //alert("Data submitted!");
+       if(urlParams.has("input")){
+           //alert(urlParams.get("input"));
 
 
+           let myInput = urlParams.get("input");
+           
+           if (getEven(myInput)) {// Even output
+             myOutput += `<p>You input <b>${myInput}</b> and the number is even</p>`;
+          } else {// Odd output
+              myOutput += `<p>You input <b>${myInput}</b> and the number is odd</p>`;
+          }
 
-    const mySubmit = document.querySelector("#submit");
-    console.log(mySubmit);
+       }
+     myOutput += `<p><a href="index.html">CLEAR</a></p>`; 
+     myOutput += `</div>`;
+   
+     document.querySelector("#output").innerHTML = myOutput;
+   }
 
-    mySubmit.addEventListener("click",function(ev){
-      ev.preventDefault();
-      const myInput = document.querySelector("#input");
-      const myOutput = document.querySelector("#output");
-      myOutput.innerHTML = titleCase(myInput.value);
-      //alert(myInput.value);
-    });
 
   </script>
  </body>
